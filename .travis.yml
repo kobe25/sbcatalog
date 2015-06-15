@@ -1,0 +1,8 @@
+sudo: false
+language: python
+services:
+  - mongodb
+python:
+  - "3.4"
+install: pip install -r requirements/dev.txt
+script: py.test sbcatalog/tests
