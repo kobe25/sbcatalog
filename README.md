@@ -1,6 +1,6 @@
 # Social Business Catalog
 
-[![Build Status](https://travis-ci.org/kobe25/sbcatalog.svg?branch=master)](https://travis-ci.org/kobe25/sbcatalog)
+[![Build Status](https://travis-ci.org/befair/sbcatalog.svg?branch=master)](https://travis-ci.org/befair/sbcatalog)
 
 [Social Business Catalog (beta)](http://sbcatalog.labs.befair.it) è un aggregatore, una vetrina ed una API
 per fornitori e prodotti dell'economia solidale.
