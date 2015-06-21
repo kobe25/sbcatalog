@@ -4,11 +4,15 @@
 
 # Please note that MONGO_HOST and MONGO_PORT could very well be left
 # out as they already default to a bare bones local 'mongod' instance.
-MONGO_HOST = 'localhost'
+MONGO_HOST = 'database'
 MONGO_PORT = 27017
 MONGO_USERNAME = ''
 MONGO_PASSWORD = ''
 MONGO_DBNAME = 'sbcatalog'
+
+# API Namespacing
+URL_PREFIX = 'api'
+API_VERSION = 'v1'
 
 # GET Request will return all the results instead of a restricted set
 PAGINATION = False

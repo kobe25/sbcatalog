@@ -30,7 +30,7 @@ var app = angular.module("sbApp", ["ngMaterial", "ngNewRouter"])
     .controller("AppController", function($http, $router, $rootScope) {
 
         $rootScope.settings = {
-            "apiBaseUrl" : "http://localhost:5000",
+            "apiBaseUrl" : "/api/v1",
             "productCategories": [
                 "Abbigliamento",
                 "Abbigliamento::Calzature",

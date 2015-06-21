@@ -1,6 +1,6 @@
 # Social Business Catalog
 
-[![Build Status](https://travis-ci.org/befair/sbcatalog.svg?branch=master)](https://travis-ci.org/befair/sbcatalog)
+[![Build Status](https://travis-ci.org/kobe25/sbcatalog.svg?branch=master)](https://travis-ci.org/kobe25/sbcatalog)
 
 [Social Business Catalog (beta)](http://sbcatalog.labs.befair.it) è un aggregatore, una vetrina ed una API
 per fornitori e prodotti dell'economia solidale.
@@ -58,32 +58,61 @@ Grazie a tutti quelli che ci provano
 
 [Il team beFair](http://www.befair.it)
 
-## Prerequisiti
+## Quickstart
 
-È richiesto Python 3.4+, quindi Debian 8+, Ubuntu 14.04+ o Arch.
+L'applicazione consiste di 4 container (in alternativa vedere l'[installazione manuale](docs/manual-install.md)):
 
-Su Debian/Ubuntu, installare Python 3, MongoDB, Node ed NPM:
+* `web`:  *NGiNX* che indirizza le richieste a `frontend` e `backend`
+* `frontend` (abbreviato `fe`):  *HarpJS* fornisce il frontend
+* `backend` (abbreviato `be`):  *uWSGI* serve l'applicazione *Flask/Eve*
+* `database` (abbreviato `db`):  *MongoDB*
 
-    sudo apt install python3 mongodb nodejs-legacy npm
+### Prerequisiti
 
-Installare Harp con NPM:
+Installare *Docker Engine* (>=1.6.2) e *Docker Compose* (>=1.2), e verificare di avere almeno 15-20GB liberi.
 
-    sudo npm install -g harp
+Su Debian Jessie:
 
-## Installazione
+    # apt install -t jessie-backports docker.io
+    # pip2 install docker-compose
 
-### Server
+Su Debian Stretch:
 
-    $ pip install -r requirements/dev.txt
+    # apt install docker.io docker-compose
+
+Su Arch:
+
+    # pacman -S docker
+    # pip2 install docker-compose
+
+Su Arch (**da verificare se necessario anche in Debian**) aggiungere il proprio utente al gruppo `docker` per evitare `sudo` nell'uso della CLI (sostituire `user` con il proprio username):
+
+    # gpasswd -a user docker
+
+Lanciare il demone `docker` (*Docker Engine*):
+
+    # systemctl start docker
+
+### Installazione
+
+Clonare il progetto e lanciare l'applicazione in background:
+
+    $ git clone https://github.com/kobe25/sbcatalog
     $ cd sbcatalog
-    $ cp settings_dist.py settings.py
-    $ ./run.py
+    $ docker-compose up -d
 
-### Client
+La prima volta questa operazione richiedera' alcuni minuti.
 
-    $ cd frontend
-    $ harp server
-    $ firefox http://localhost:9000
+Infine andare su:
+
+* [`localhost:8080/`](http://localhost:8080/)
+* [`localhost:8080/api/v1/`](http://localhost:8080/api/v1/)
+
+Approfondimenti:  [CLI Usage](docs/cli.md)
+
+## Utilizzo
+
+### Configurazioni
 
 Se il server risiede in un dominio remoto settare la `apiBaseUrl` correttamente:
 
@@ -97,8 +126,7 @@ Per esempio:
 
 Per generare un elenco di fornitori georeferenziati (utilizzati dalla mappa di sbcatalog):
 
-	$ cd sbcatalog
-	$ ./run.py update-geodb
+	$ sbcatalog/run.py update-geodb
 
 Per la `georeferenziazione` viene utilizzato [Open Street Map](http://www.openstreetmap.org/about/).
 
@@ -108,29 +136,32 @@ Tramite API è possibile interagire con il database dei fornitori in questo modo
 
 1. Inserire nuovi fornitori con i relativi cataloghi prodotti:
 
-    `$ curl -XPOST -d @<file.gdxp> -H "Content-type: text/xml" http://localhost:5000/gdxp/supplier/`
+    `$ curl -XPOST -d @<file.gdxp> -H "Content-type: text/xml" http://localhost:8080/api/v1/gdxp/supplier/`
 
 2. Scaricare tutti i fornitori e i cataloghi prodotti in formato GDXP:
 
-    `$ curl -XGET -H "Content-type: text/xml" http://localhost:5000/gdxp/supplier/`
+    `$ curl -XGET -H "Content-type: text/xml" http://localhost:8080/api/v1/gdxp/supplier/`
 
 3. Scaricare tutti i fornitori e i cataloghi prodotti in formato JSON:
 
-    `$ curl -XGET -H "Content-type: application/json" http://localhost:5000/supplier/`
+    `$ curl -XGET -H "Content-type: application/json" http://localhost:8080/api/v1/supplier/`
 
 4. Scaricare le informazioni geomatiche (coordinate, indirizzo, nome) dei fornitori:
 
-    `$ curl -XGET -H "Content-type: application/json" http://localhost:5000/geo/supplier/`
+    `$ curl -XGET -H "Content-type: application/json" http://localhost:8080/api/v1/geo/supplier/`
 
-Per usare le API della piattaforma ufficiale di produzione di sbcatalog, sostituire `http://localhost:5000` con `http://sbcatalog.labs.befair.it/api`.
+Per usare le API della piattaforma ufficiale di produzione di sbcatalog, sostituire `http://localhost:8080/api/v1` con `http://sbcatalog.labs.befair.it/api`.
 
 ## Test
 
-Per lanciare i test:
+Per lanciare specifici test:
 
-    $ pip install -r requirements/dev.txt
-    $ cd sbcatalog/tests
-    $ py.test
+    $ make test-unit
+    $ make test-integration
+
+Per lanciare tutti i test:
+
+    $ make test
 
 ## Autori
 

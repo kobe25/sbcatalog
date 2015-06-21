@@ -1,0 +1,32 @@
+test:
+  build: ./test
+  volumes_from:
+    - be
+  links:
+    - web
+    - db
+
+web:
+  build: ./web
+  volumes:
+    - ./web:/etc/nginx/conf.d:ro
+  ports:
+    - '127.0.0.1:8080:80'
+  links:
+    - fe:frontend
+    - be:backend
+
+fe:
+  build: ./frontend
+  volumes:
+    - ./frontend:/code:ro
+
+be:
+  build: ./sbcatalog
+  volumes:
+    - ./sbcatalog:/code/sbcatalog:rw
+  links:
+    - db:database
+
+db:
+  image: mongo:2.4

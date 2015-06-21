@@ -1,0 +1,30 @@
+uwsgi:
+  uid: app
+  gid: app
+
+  autoload: false
+  plugin: python3
+  python-autoreload: '1'
+  # py-tracebacker
+
+  chdir: /code/sbcatalog
+  wsgi-file: /code/sbcatalog/run.py
+  callable: app
+  uwsgi-socket: '0.0.0.0:7000'
+
+  master: true
+  lazy-apps: false
+  enable-threads: true
+  workers: '2'
+  threads: '1'
+  buffer-size: '65536'
+
+  max-requests: '128'
+  harakiri: '120'
+  harakiri-verbose: true
+
+  auto-procname: true
+  no-orphans: true
+  vacuum: true
+  thunder-lock: true
+  log-date: true

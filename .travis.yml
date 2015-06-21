@@ -1,8 +1,28 @@
 sudo: false
+
 language: python
+python:
+  - '3.4'
 services:
   - mongodb
-python:
-  - "3.4"
-install: pip install -r requirements/dev.txt
-script: py.test sbcatalog/tests
+addons:
+  hosts:
+    - web
+    - backend
+    - frontend
+    - database
+env:
+  global:
+    - PYTHONPATH=$(pwd):$PYTHONPATH
+install:
+  - pip install -r sbcatalog/requirements/dev.txt
+
+before_script:
+  - sbcatalog/run.py &
+
+script:
+  - cd sbcatalog/tests && py.test && cd -
+  - cd test/integration && py.test && cd -
+
+after_script:
+  - killall run.py
