@@ -15,14 +15,15 @@ help:
 	@echo 'make back       Debug in backend via iPython'
 
 debian8 jessie:
+	@sudo apt install python
 	@sudo apt install -t jessie-backports docker.io
 	@sudo pip2 install docker-compose
 
 debian9 stretch:
-	@sudo apt install make docker.io docker-compose
+	@sudo apt install python docker.io docker-compose
 
 arch:
-	@sudo pacman -S make docker
+	@sudo pacman -S python2 docker
 	@sudo pip2 install docker-compose
 
 up:

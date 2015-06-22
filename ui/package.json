@@ -1,0 +1,19 @@
+{
+  "name": "sbcatalog",
+  "version": "0.0.2",
+  "description": "Social Business Catalog App aims to be the first user interface to the Social Business Catalog service.",
+  "main": "app.js",
+  "dependencies": {
+    "harp": "^0.17.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo 'No tests yet!' && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/kobe25/sbcatalog"
+  },
+  "author": "beFair",
+  "license": "AGPL-3.0"
+}
