@@ -4,7 +4,7 @@ import json
 
 
 def get_addresses(verbose=False):
-    with pymongo.connection.Connection() as conn:
+    with pymongo.connection.Connection('db', 27017) as conn:
         coll = conn['sbcatalog']['supplier']
         suppliers_in = coll.find()
 
@@ -46,7 +46,7 @@ def get_addresses(verbose=False):
 
 
 def update_geo_db(verbose=False):
-    with pymongo.connection.Connection() as conn:
+    with pymongo.connection.Connection('db', 27017) as conn:
         coll = conn['sbcatalog']['geosupplier']
         coll.drop()
         coll.insert(get_addresses(verbose))

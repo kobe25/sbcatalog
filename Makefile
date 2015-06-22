@@ -1,18 +1,18 @@
 help:
-	@echo sbcatalog help
-	@echo make            Print this help
+	@echo '**SBCatalog Help**'
+	@echo 'make           Print this help'
 	@echo
-	@echo Whole app commands:
-	@echo make ps					Container status
-	@echo make logs				See all logs
+	@echo 'Whole app commands:'
+	@echo 'make up         Build and start all'
+	@echo 'make ps         Container status'
+	@echo 'make logs       See all logs'
+	@echo 'make stop       Stop all containers'
+	@echo 'make restart    Restart all containers'
+	@echo 'make rm         Delete containers'
 	@echo
-	@echo make restart		Restart all containers
-	@echo make stop				Stop all containers
-	@echo make rm					Delete containers
-	@echo
-	@echo Container commands:
-	@echo make logs back  See only backend logs
-	@echo make back       Debug in backend via iPython
+	@echo 'Container commands:'
+	@echo 'make logs back  See only backend logs'
+	@echo 'make back       Debug in backend via iPython'
 
 debian8 jessie:
 	@sudo apt install -t jessie-backports docker.io
