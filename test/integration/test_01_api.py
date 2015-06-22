@@ -1,16 +1,19 @@
 from http import client
-import sbcatalog.geomatic
-import xmltodict
 import json
+
+import xmltodict
 import codecs
+
+import api.geomatic
+
 
 # Settings
 
-conn = client.HTTPConnection('web', 8080)
+conn = client.HTTPConnection('proxy', 8080)
 supplier_file = 'test_data.gdxp'
 
-# Utilities
 
+# Utilities
 
 def assertCode(response, expected_code=200):
     """ Assert that response code is the expected """
@@ -48,8 +51,8 @@ def check_supplier(supplier):
     assert supplier['address']['locality'] == "Matelica"
     assert supplier['address']['zipcode'] == "62024"
 
-# Tests
 
+# Tests
 
 def test_01_post_gdxp():
     """ POST test for importing gdxp suppliers data """
@@ -88,7 +91,7 @@ def test_03_get_gdxp():
 def test_04_geo_api():
     """ Data generation and GET test for geo API """
     # test geodb generation
-    sbcatalog.geomatic.update_geo_db()
+    api.geomatic.update_geo_db()
 
     # test GET /api/v1/geo/supplier
     conn.request('GET', '/api/v1/geo/supplier')

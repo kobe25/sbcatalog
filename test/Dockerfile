@@ -6,7 +6,7 @@ ENV PYTHONUNBUFFERED 1
 ENV PYTHONPATH /code:/usr/local/lib/python3.4/site-packages
 
 COPY . /code
-#COPY ../sbcatalog /code/sbcatalog
+#COPY ../api /code/api
 WORKDIR /code
 
 RUN pip install -r requirements.txt

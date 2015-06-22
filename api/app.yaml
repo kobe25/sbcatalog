@@ -7,8 +7,8 @@ uwsgi:
   python-autoreload: '1'
   # py-tracebacker
 
-  chdir: /code/sbcatalog
-  wsgi-file: /code/sbcatalog/run.py
+  chdir: /code/api
+  wsgi-file: /code/api/run.py
   callable: app
   uwsgi-socket: '0.0.0.0:7000'
 

@@ -60,34 +60,35 @@ Grazie a tutti quelli che ci provano
 
 ## Quickstart
 
-L'applicazione consiste di 4 container (in alternativa vedere l'[installazione manuale](docs/manual-install.md)):
+L'applicazione consiste di 4 container:
 
-* `web`:  *NGiNX* che indirizza le richieste a `frontend` e `backend`
-* `frontend` (abbreviato `fe`):  *HarpJS* fornisce il frontend
-* `backend` (abbreviato `be`):  *uWSGI* serve l'applicazione *Flask/Eve*
-* `database` (abbreviato `db`):  *MongoDB*
+* `proxy`:  *NGiNX* che indirizza le richieste a `front` e `back`
+* `front`:  *HarpJS* fornisce il frontend
+* `back`:  *uWSGI* serve l'API server *Flask/Eve*
+* `db`:  *MongoDB*
 
 ### Prerequisiti
 
-Installare *Docker Engine* (>=1.6.2) e *Docker Compose* (>=1.2), e verificare di avere almeno 15-20GB liberi.
+Installare `make`, *Docker Engine* (>=1.6.2) e *Docker Compose* (>=1.2), e verificare di avere almeno 15-20GB liberi.
 
 Su Debian Jessie:
 
+    # apt install make
     # apt install -t jessie-backports docker.io
     # pip2 install docker-compose
 
 Su Debian Stretch:
 
-    # apt install docker.io docker-compose
+    # apt install make docker.io docker-compose
 
 Su Arch:
 
-    # pacman -S docker
+    # pacman -S make docker
     # pip2 install docker-compose
 
-Su Arch (**da verificare se necessario anche in Debian**) aggiungere il proprio utente al gruppo `docker` per evitare `sudo` nell'uso della CLI (sostituire `user` con il proprio username):
+Su Arch (**da verificare se necessario anche in Debian**) aggiungere il proprio utente al gruppo `docker` per evitare `sudo` nell'uso della CLI (sostituire `username` con il proprio username):
 
-    # gpasswd -a user docker
+    # gpasswd -a username docker
 
 Lanciare il demone `docker` (*Docker Engine*):
 
@@ -99,7 +100,7 @@ Clonare il progetto e lanciare l'applicazione in background:
 
     $ git clone https://github.com/kobe25/sbcatalog
     $ cd sbcatalog
-    $ docker-compose up -d
+    $ make up
 
 La prima volta questa operazione richiedera' alcuni minuti.
 
@@ -108,25 +109,25 @@ Infine andare su:
 * [`localhost:8080/`](http://localhost:8080/)
 * [`localhost:8080/api/v1/`](http://localhost:8080/api/v1/)
 
+Per tutti i comandi:
+
+    $ make help
+
 Approfondimenti:  [CLI Usage](docs/cli.md)
 
 ## Utilizzo
 
 ### Configurazioni
 
-Se il server risiede in un dominio remoto settare la `apiBaseUrl` correttamente:
+Se il server risiede in un dominio remoto settare la `apiBaseUrl` correttamente, ad esempio:
 
-    $ echo '{ "apiBaseUrl" : "http://example.org" }' > frontend/settings.json
-
-Per esempio:
-
-    $ echo '{ "apiBaseUrl" : "http://sbcatalog.labs.befair.it/api" }' > frontend/settings.json
+    $ echo '{ "apiBaseUrl" : "http://sbcatalog.labs.befair.it/api" }' > ui/settings.json
 
 ### Aggiornamento Geodatabase
 
 Per generare un elenco di fornitori georeferenziati (utilizzati dalla mappa di sbcatalog):
 
-	$ sbcatalog/run.py update-geodb
+	$ api/run.py update-geodb
 
 Per la `georeferenziazione` viene utilizzato [Open Street Map](http://www.openstreetmap.org/about/).
 

@@ -21,27 +21,19 @@ Per approfondimenti, vedere [Docker Engine CLI Reference](https://docs.docker.co
 
 Aprire un interprete Python nel backend:
 
-    $ docker-compose run be ipython
+    $ docker-compose run back ipython
 
 Vedere lo stato dei container:
 
     $ docker-compose ps
 
-Vedere tutti i log:
-
-    $ docker-compose logs
-
 Vedere i log del backend:
 
-    $ docker-compose logs be
+    $ docker-compose logs back
 
 Riavviare il container del web server:
 
-    $ docker-compose restart web
-
-Riavviare tutti i container:
-
-    $ docker-compose stop
+    $ docker-compose restart proxy
 
 Cancellare le immagini dei container:
 

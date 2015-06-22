@@ -7,21 +7,21 @@ services:
   - mongodb
 addons:
   hosts:
-    - web
-    - backend
-    - frontend
-    - database
+    - proxy
+    - back
+    - front
+    - db
 env:
   global:
     - PYTHONPATH=$(pwd):$PYTHONPATH
 install:
-  - pip install -r sbcatalog/requirements/dev.txt
+  - pip install -r api/requirements/dev.txt
 
 before_script:
-  - sbcatalog/run.py &
+  - api/run.py &
 
 script:
-  - cd sbcatalog/tests && py.test && cd -
+  - py.test api/tests
   - cd test/integration && py.test && cd -
 
 after_script:

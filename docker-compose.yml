@@ -1,32 +1,32 @@
 test:
   build: ./test
   volumes_from:
-    - be
+    - back
   links:
-    - web
+    - proxy
     - db
 
-web:
-  build: ./web
+proxy:
+  build: ./proxy
   volumes:
-    - ./web:/etc/nginx/conf.d:ro
+    - ./proxy:/etc/nginx/conf.d:ro
   ports:
     - '127.0.0.1:8080:80'
   links:
-    - fe:frontend
-    - be:backend
+    - front
+    - back
 
-fe:
-  build: ./frontend
+front:
+  build: ./ui
   volumes:
-    - ./frontend:/code:ro
+    - ./ui:/code:ro
 
-be:
-  build: ./sbcatalog
+back:
+  build: ./api
   volumes:
-    - ./sbcatalog:/code/sbcatalog:rw
+    - ./api:/code/api:ro
   links:
-    - db:database
+    - db
 
 db:
   image: mongo:2.4
