@@ -63,19 +63,22 @@ Grazie a tutti quelli che ci provano
 L'applicazione consiste di 4 container:
 
 * `proxy`:  *NGiNX* che indirizza le richieste a `front` e `back`
-* `front`:  *HarpJS* fornisce il frontend
+* `front`:  *HarpJS* fornisce la web UI
 * `back`:  *uWSGI* serve l'API server *Flask/Eve*
 * `db`:  *MongoDB*
 
 ### Prerequisiti
 
-Abbiamo bisogno di questi due strumenti:
-
 * [**Docker Engine**](https://www.docker.com/) (>=1.6.2), il container runtime
-* [**Docker Compose**](https://docs.docker.com/compose/) (>=1.2), il container orchestrator, un wrapper che permette di gestire un'applicazione multi container
+* [**Docker Compose**](https://docs.docker.com/compose/) (>=1.2), il container orchestrator, con cui gestiremo l'applicazione multi container
 * almeno 15-20GB liberi
 
-Per installare, dare a seconda della propria distro:
+Clonare il progetto:
+
+    $ git clone https://github.com/kobe25/sbcatalog
+    $ cd sbcatalog
+
+Per installare, a seconda della propria distro:
 
     $ make debian8
     $ make debian9
@@ -91,10 +94,8 @@ Lanciare il demone `docker` (*Docker Engine*):
 
 ### Installazione
 
-Clonare il progetto e lanciare l'applicazione in background:
+Per buildare e lanciare l'intera applicazione in background:
 
-    $ git clone https://github.com/kobe25/sbcatalog
-    $ cd sbcatalog
     $ make up
 
 La prima volta questa operazione richiedera' alcuni minuti.
