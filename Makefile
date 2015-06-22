@@ -1,8 +1,29 @@
 help:
-	@echo help
-	@echo make logs  See all logs
+	@echo sbcatalog help
+	@echo make            Print this help
 	@echo
-	@echo make stop  Stop all containers
+	@echo Whole app commands:
+	@echo make ps					Container status
+	@echo make logs				See all logs
+	@echo
+	@echo make restart		Restart all containers
+	@echo make stop				Stop all containers
+	@echo make rm					Delete containers
+	@echo
+	@echo Container commands:
+	@echo make logs back  See only backend logs
+	@echo make back       Debug in backend via iPython
+
+debian8 jessie:
+	@sudo apt install -t jessie-backports docker.io
+	@sudo pip2 install docker-compose
+
+debian9 stretch:
+	@sudo apt install make docker.io docker-compose
+
+arch:
+	@sudo pacman -S make docker
+	@sudo pip2 install docker-compose
 
 up:
 	@docker-compose up -d
@@ -33,11 +54,11 @@ rm:
 	@docker-compose rm -f
 	@docker rmi -f sbcatalog_{test,proxy,front,back,db}
 
+test:  test-unit test-integration
+	@echo 'All tests passed successfully!'
+
 test-unit:
 	@docker-compose run back py.test tests
 
 test-integration:
 	@docker-compose run test py.test
-
-test:  test-unit test-integration
-	@echo 'All tests passed!'

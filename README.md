@@ -69,22 +69,17 @@ L'applicazione consiste di 4 container:
 
 ### Prerequisiti
 
-Installare `make`, *Docker Engine* (>=1.6.2) e *Docker Compose* (>=1.2), e verificare di avere almeno 15-20GB liberi.
+Abbiamo bisogno di questi due strumenti:
 
-Su Debian Jessie:
+* [**Docker Engine**](https://www.docker.com/) (>=1.6.2), il container runtime
+* [**Docker Compose**](https://docs.docker.com/compose/) (>=1.2), il container orchestrator, un wrapper che permette di gestire un'applicazione multi container
+* almeno 15-20GB liberi
 
-    # apt install make
-    # apt install -t jessie-backports docker.io
-    # pip2 install docker-compose
+Per installare, dare a seconda della propria distro:
 
-Su Debian Stretch:
-
-    # apt install make docker.io docker-compose
-
-Su Arch:
-
-    # pacman -S make docker
-    # pip2 install docker-compose
+    $ make debian8
+    $ make debian9
+    $ make arch
 
 Su Arch (**da verificare se necessario anche in Debian**) aggiungere il proprio utente al gruppo `docker` per evitare `sudo` nell'uso della CLI (sostituire `username` con il proprio username):
 
@@ -109,11 +104,14 @@ Infine andare su:
 * [`localhost:8080/`](http://localhost:8080/)
 * [`localhost:8080/api/v1/`](http://localhost:8080/api/v1/)
 
-Per tutti i comandi:
+Per i principali comandi:
 
     $ make help
 
-Approfondimenti:  [CLI Usage](docs/cli.md)
+Per approfondire:
+
+* [Docker Engine CLI Reference](https://docs.docker.com/docker/reference/commandline/cli/)
+* [Docker Compose CLI Reference](https://docs.docker.com/compose/cli/)
 
 ## Utilizzo
 
