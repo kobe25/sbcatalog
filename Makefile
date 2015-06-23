@@ -66,7 +66,7 @@ rmall:  rm rmc rmi
 rm:
 	@docker-compose stop
 	@docker-compose rm -f
-	@docker rmi -f sbcatalog_{test,proxy,front,back}
+	@docker rmi -f kobe25/sbcatalog-{test,proxy,front,back}
 
 rmc:
 	@docker rm -f `docker ps -aq`
