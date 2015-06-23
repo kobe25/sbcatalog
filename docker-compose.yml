@@ -7,7 +7,7 @@ test:
     - db
 
 proxy:
-  image: kobe25/sbcatalog-proxy
+  image: kobe25/sbcatalog-proxy:latest
   volumes:
     - ./proxy:/etc/nginx/conf.d:ro
   ports:
@@ -17,12 +17,12 @@ proxy:
     - back
 
 front:
-  image: kobe25/sbcatalog-front
+  image: kobe25/sbcatalog-front:latest
   volumes:
     - ./ui:/code:ro
 
 back:
-  image: kobe25/sbcatalog-back
+  image: kobe25/sbcatalog-back:latest
   volumes:
     - ./api:/code/api:ro
   links:

@@ -3,6 +3,9 @@
   "version": "0.0.2",
   "description": "Social Business Catalog App aims to be the first user interface to the Social Business Catalog service.",
   "main": "app.js",
+  "bin": {
+    "harp": "./node_modules/harp/bin/harp"
+  },
   "dependencies": {
     "harp": "^0.17.0"
   },

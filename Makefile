@@ -75,7 +75,7 @@ rmi:
 	@docker rmi -f `docker images -aq`
 
 test:  test-unit test-integration
-	@echo 'All tests passed successfully!'
+	@echo 'All tests passed!'
 
 test-unit:
 	@docker-compose run back py.test tests
