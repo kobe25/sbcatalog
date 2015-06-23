@@ -1,5 +1,5 @@
 test:
-  build: ./test
+  image: kobe25/sbcatalog-test:latest
   volumes_from:
     - back
   links:
