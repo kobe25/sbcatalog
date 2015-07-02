@@ -8,17 +8,20 @@ import api.geomatic
 
 
 # Settings
+hostname = 'proxy'
+port = 80
 
-conn = client.HTTPConnection('proxy', 8080)
+# suppliers data
 supplier_file = 'test_data.gdxp'
 
-
 # Utilities
+
+def open_connection():
+    return client.HTTPConnection(hostname, port)
 
 def assertCode(response, expected_code=200):
     """ Assert that response code is the expected """
     assert response.code == expected_code, "Response code is excepted"
-
 
 def elaborate_response():
     """ Check return code of response and return DATA """
@@ -51,8 +54,11 @@ def check_supplier(supplier):
     assert supplier['address']['locality'] == "Matelica"
     assert supplier['address']['zipcode'] == "62024"
 
-
 # Tests
+
+# before starting the tests we open a connection
+# that will be shared among tests
+conn = open_connection() 
 
 def test_01_post_gdxp():
     """ POST test for importing gdxp suppliers data """
@@ -64,7 +70,7 @@ def test_01_post_gdxp():
     conn.request('POST', '/api/v1/gdxp/supplier', xml, {'Content-type': 'text/xml'})
     r = conn.getresponse()
     assertCode(r, 201)
-
+    r.read()
 
 def test_02_get_json():
     """ GET test for exporting suppliers data in json format """
@@ -90,8 +96,14 @@ def test_03_get_gdxp():
 
 def test_04_geo_api():
     """ Data generation and GET test for geo API """
+    conn.close()
+
     # test geodb generation
     api.geomatic.update_geo_db()
+
+    # we refresh our connection before making a new request
+    global conn
+    conn = open_connection()
 
     # test GET /api/v1/geo/supplier
     conn.request('GET', '/api/v1/geo/supplier')
@@ -100,6 +112,5 @@ def test_04_geo_api():
 
     # check data
     assert item['address'] == "Matelica 62024 Loc. campochiesa, 6"
-    # assert item['webSite'] == "http://www.cantinaprimadiesanatoglia.it/"
     assert item['name'] == "Acquaterra"
     assert item['coords'] == [13.00948, 43.2565867]
