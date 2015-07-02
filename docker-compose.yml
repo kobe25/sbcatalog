@@ -1,7 +1,8 @@
 test:
   image: kobe25/sbcatalog-test:latest
-  volumes_from:
-    - back
+  volumes:
+    - ./test:/code/test:ro
+    - ./api:/code/api:ro
   links:
     - proxy
     - db

@@ -74,11 +74,11 @@ rmc:
 rmi:
 	@docker rmi -f `docker images -aq`
 
-test:  test-unit test-integration
+test: test-unit test-integration
 	@echo 'All tests passed!'
 
 test-unit:
-	@docker-compose run back py.test tests
+	@echo 'TODO: UNIT TEST'
 
 test-integration:
-	@docker-compose run test py.test
+	@docker-compose run test py.test /code/test/integration
