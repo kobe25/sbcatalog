@@ -1,4 +1,4 @@
-FROM kobe25/uwsgi-python:latest
+FROM befair/uwsgi-python:latest
 
 ENV UWSGI_CHDIR     /code/api
 ENV UWSGI_WSGI_FILE /code/api/run.py
